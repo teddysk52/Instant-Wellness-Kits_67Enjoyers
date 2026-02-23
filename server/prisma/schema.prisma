@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Order {
+  id               String   @id @default(uuid())
+  originalId       Int?     @map("original_id")
+  latitude         Float
+  longitude        Float
+  subtotal         Float
+  compositeTaxRate Float    @map("composite_tax_rate")
+  taxAmount        Float    @map("tax_amount")
+  totalAmount      Float    @map("total_amount")
+  breakdown        Json
+  jurisdictions    Json
+  timestamp        DateTime @default(now())
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  @@map("orders")
+}
+
+model GeocodeCache {
+  id        String   @id @default(uuid())
+  latitude  Float
+  longitude Float
+  state     String?
+  county    String?
+  city      String?
+  raw       Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([latitude, longitude])
+  @@map("geocode_cache")
+}
