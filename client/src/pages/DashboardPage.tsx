@@ -94,9 +94,6 @@ export default function DashboardPage() {
           <h1 className="text-2xl font-bold text-gray-900">
             {t("dashboard.title")}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            {t("dashboard.subtitle")}
-          </p>
         </div>
         <div className="rounded-2xl border border-dashed border-gray-200 bg-white p-16 text-center">
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-50">
@@ -132,14 +129,9 @@ export default function DashboardPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">
-            {t("dashboard.title")}
-          </h1>
-          <p className="mt-1 text-sm text-gray-400">
-            {t("dashboard.subtitle")}
-          </p>
-        </div>
+        <h1 className="text-2xl font-bold text-gray-900">
+          {t("dashboard.title")}
+        </h1>
         <div className="flex gap-2.5">
           <Link
             to="/orders"

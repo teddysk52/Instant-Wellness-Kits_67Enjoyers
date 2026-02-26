@@ -1,9 +1,11 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
+  const location = useLocation();
+  const isMapPage = location.pathname === "/map";
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -38,13 +40,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <NavLink to="/import" className={linkClass}>
                 {t("nav.import")}
               </NavLink>
+              <NavLink to="/map" className={linkClass}>
+                {t("nav.map")}
+              </NavLink>
             </nav>
           </div>
           <LanguageSwitcher />
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className={isMapPage ? "" : "mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"}>
         {children}
       </main>
 
@@ -61,6 +66,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </NavLink>
           <NavLink to="/import" className={linkClass}>
             {t("nav.import")}
+          </NavLink>
+          <NavLink to="/map" className={linkClass}>
+            🗺
           </NavLink>
         </div>
       </nav>

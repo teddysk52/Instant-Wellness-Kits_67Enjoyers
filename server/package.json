@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "npx tsc",
     "start": "node dist/index.js",
+    "build:all": "cd ../client && npm install && npm run build && cd ../server && npm install && npx prisma generate && npx tsc",
     "db:migrate": "npx prisma migrate dev",
+    "db:migrate:deploy": "npx prisma migrate deploy",
     "db:push": "npx prisma db push",
     "db:seed": "tsx src/seed.ts",
     "db:studio": "npx prisma studio"

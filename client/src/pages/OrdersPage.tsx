@@ -34,18 +34,15 @@ export default function OrdersPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
+        <div className="flex items-center gap-3">
           <h1 className="text-2xl font-bold text-gray-900">
             {t("orders.title")}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            {t("orders.subtitle")}
-            {data && (
-              <span className="ml-2 font-medium text-gray-700">
-                ({data.meta.total.toLocaleString()} {t("common.results")})
-              </span>
-            )}
-          </p>
+          {data && (
+            <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-500">
+              {data.meta.total.toLocaleString()}
+            </span>
+          )}
         </div>
         <div className="flex items-center gap-3">
           <div className="relative">

@@ -41,6 +41,28 @@ export async function getOrders(req: Request, res: Response) {
       }
     }
 
+    if (query.subtotalMin !== undefined || query.subtotalMax !== undefined) {
+      where.subtotal = {};
+      if (query.subtotalMin !== undefined) where.subtotal.gte = query.subtotalMin;
+      if (query.subtotalMax !== undefined) where.subtotal.lte = query.subtotalMax;
+    }
+
+    if (query.taxRateMin !== undefined || query.taxRateMax !== undefined) {
+      where.compositeTaxRate = {};
+      if (query.taxRateMin !== undefined) where.compositeTaxRate.gte = query.taxRateMin;
+      if (query.taxRateMax !== undefined) where.compositeTaxRate.lte = query.taxRateMax;
+    }
+
+    if (query.dateFrom || query.dateTo) {
+      where.timestamp = {};
+      if (query.dateFrom) where.timestamp.gte = new Date(query.dateFrom);
+      if (query.dateTo) {
+        const end = new Date(query.dateTo);
+        end.setDate(end.getDate() + 1);
+        where.timestamp.lt = end;
+      }
+    }
+
     const orderBy: Prisma.OrderOrderByWithRelationInput = {
       [query.sortBy ?? "timestamp"]: query.sortOrder ?? "desc",
     };
@@ -60,7 +82,7 @@ export async function getOrders(req: Request, res: Response) {
       },
     });
   } catch (err: any) {
-    console.error("getOrders error:", err);
+    console.error("getOrders error:", err?.message ?? String(err));
     res.status(400).json({ error: err.message ?? "Bad request" });
   }
 }
@@ -123,7 +145,7 @@ export async function getStats(_req: Request, res: Response) {
       subtotalDistribution,
     });
   } catch (err: any) {
-    console.error("getStats error:", err);
+    console.error("getStats error:", err?.message ?? String(err));
     res.status(500).json({ error: err.message ?? "Internal error" });
   }
 }
@@ -168,7 +190,7 @@ export async function createOrder(req: Request, res: Response) {
 
     res.status(201).json(order);
   } catch (err: any) {
-    console.error("createOrder error:", err);
+    console.error("createOrder error:", err?.message ?? String(err));
     res.status(400).json({ error: err.message ?? "Bad request" });
   }
 }
@@ -256,7 +278,7 @@ export async function importOrders(req: Request, res: Response) {
       errors: errors.slice(0, 50),
     });
   } catch (err: any) {
-    console.error("importOrders error:", err);
+    console.error("importOrders error:", err?.message ?? String(err));
     res.status(500).json({ error: err.message ?? "Import failed" });
   }
 }

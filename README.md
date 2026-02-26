@@ -33,8 +33,10 @@ NYC borough mapping: Manhattan → New York County, Brooklyn → Kings, Queens �
 - **Orders table** — paginated, sortable, filterable, expandable rows with tax breakdown
 - **Create order** — manual entry with instant tax calculation
 - **CSV import** — bulk import 11K+ orders with batch processing
+- **Drone map** — interactive Leaflet map with animated drone delivery simulation (speed controls 1×/2×/5×/10×, bezier flight paths, return-to-HQ animation)
 - **i18n** — English 🇺🇸 and Ukrainian 🇺🇦
 - **Geocode caching** — avoids duplicate API calls for same coordinates
+- **Local geocoder** — centroid-based reverse geocoding for instant bulk tax calculation (no API dependency)
 
 ## 🚀 Quick Start
 
@@ -143,8 +145,7 @@ id,longitude,latitude,timestamp,subtotal
 │   │   ├── seed.ts               # CLI seeder
 │   │   ├── data/nyTaxRates.ts    # All 62 NY county rates
 │   │   ├── services/
-│   │   │   ├── geocoding.ts      # Nominatim + cache
-│   │   │   └── taxEngine.ts      # Composite tax calculator
+│   │   │   ├── geocoding.ts      # Nominatim + cache    │   │   │   ├── localGeocoding.ts  # Centroid-based local geocoder│   │   │   └── taxEngine.ts      # Composite tax calculator
 │   │   ├── controllers/orders.ts
 │   │   ├── routes/orders.ts
 │   │   └── utils/
@@ -158,7 +159,8 @@ id,longitude,latitude,timestamp,subtotal
     │   │   ├── DashboardPage.tsx
     │   │   ├── OrdersPage.tsx
     │   │   ├── CreateOrderPage.tsx
-    │   │   └── ImportPage.tsx
+    │   │   ├── ImportPage.tsx
+    │   │   └── MapPage.tsx
     │   ├── components/
     │   ├── hooks/useOrders.ts
     │   ├── api/
@@ -170,4 +172,27 @@ id,longitude,latitude,timestamp,subtotal
 ## 👥 Team
 
 **67Enjoyers**
+
+## 🌐 Deployment (Render)
+
+The project includes a `render.yaml` Blueprint for one-click deploy on [Render](https://render.com).
+
+### Option A: Blueprint (recommended)
+
+1. Push code to GitHub
+2. Go to [Render Dashboard](https://dashboard.render.com) → **New** → **Blueprint**
+3. Connect your repo — Render reads `render.yaml` and creates:
+   - **Web Service** (Node.js, free tier) — builds client + server
+   - **PostgreSQL** (free tier) — `DATABASE_URL` auto-injected
+4. After first deploy, import data via the UI's Import CSV page
+
+### Option B: Manual setup
+
+1. Create a **PostgreSQL** database on Render (free tier)
+2. Create a **Web Service**:
+   - **Root Directory**: `server`
+   - **Build Command**: `npm run build:all`
+   - **Start Command**: `npx prisma migrate deploy && node dist/index.js`
+   - **Environment Variable**: `DATABASE_URL` = your Render PostgreSQL internal URL
+
 # Instant-Wellness-Kits_67Enjoyers

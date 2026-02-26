@@ -5,6 +5,7 @@ import DashboardPage from "./pages/DashboardPage";
 import OrdersPage from "./pages/OrdersPage";
 import CreateOrderPage from "./pages/CreateOrderPage";
 import ImportPage from "./pages/ImportPage";
+import MapPage from "./pages/MapPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/create" element={<CreateOrderPage />} />
             <Route path="/import" element={<ImportPage />} />
+            <Route path="/map" element={<MapPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

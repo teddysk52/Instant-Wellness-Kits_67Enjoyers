@@ -46,7 +46,7 @@ export default function CreateOrderPage() {
 
   if (createdOrder) {
     return (
-      <div className="mx-auto max-w-lg space-y-6">
+      <div className="mx-auto flex min-h-[calc(100vh-10rem)] max-w-lg flex-col justify-center space-y-6">
         <div className="card p-8 text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
             <svg
@@ -125,15 +125,10 @@ export default function CreateOrderPage() {
   }
 
   return (
-    <div className="mx-auto max-w-lg space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">
-          {t("createOrder.title")}
-        </h1>
-        <p className="mt-1 text-sm text-gray-500">
-          {t("createOrder.subtitle")}
-        </p>
-      </div>
+    <div className="mx-auto flex min-h-[calc(100vh-10rem)] max-w-lg flex-col justify-center space-y-6">
+      <h1 className="text-2xl font-bold text-gray-900">
+        {t("createOrder.title")}
+      </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="card space-y-5 p-6">
         <div className="grid grid-cols-2 gap-4">
