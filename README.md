@@ -172,27 +172,3 @@ id,longitude,latitude,timestamp,subtotal
 ## 👥 Team
 
 **67Enjoyers**
-
-## 🌐 Deployment (Render)
-
-The project includes a `render.yaml` Blueprint for one-click deploy on [Render](https://render.com).
-
-### Option A: Blueprint (recommended)
-
-1. Push code to GitHub
-2. Go to [Render Dashboard](https://dashboard.render.com) → **New** → **Blueprint**
-3. Connect your repo — Render reads `render.yaml` and creates:
-   - **Web Service** (Node.js, free tier) — builds client + server
-   - **PostgreSQL** (free tier) — `DATABASE_URL` auto-injected
-4. After first deploy, import data via the UI's Import CSV page
-
-### Option B: Manual setup
-
-1. Create a **PostgreSQL** database on Render (free tier)
-2. Create a **Web Service**:
-   - **Root Directory**: `server`
-   - **Build Command**: `npm run build:all`
-   - **Start Command**: `npx prisma migrate deploy && node dist/index.js`
-   - **Environment Variable**: `DATABASE_URL` = your Render PostgreSQL internal URL
-
-# Instant-Wellness-Kits_67Enjoyers
