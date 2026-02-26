@@ -17,5 +17,5 @@ services:
         fromDatabase:
           name: instant-wellness-kits-db
           property: connectionString
-      - key: NODE_ENV
-        value: production
+      - key: NODE_VERSION
+        value: "20"
